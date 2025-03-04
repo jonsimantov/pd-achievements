@@ -479,7 +479,7 @@ function av.sortCards()
                        return true
                     elseif m.additionalAchievementData[a].grantedAt and m.additionalAchievementData[b].grantedAt and
                        m.additionalAchievementData[a].grantedAt ~= m.additionalAchievementData[b].grantedAt then
-                       return m.additionalAchievementData[a].grantedAt > m.additionalAchievementData[b].grantedAt
+		       return m.additionalAchievementData[a].idx <  m.additionalAchievementData[b].idx
                     else
                        local progressMaxA = m.achievementData[a].progressMax or m.achievementData[a].progress_max or 0
                        local progressMaxB = m.achievementData[b].progressMax or m.achievementData[b].progress_max or 0
