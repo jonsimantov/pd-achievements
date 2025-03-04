@@ -71,8 +71,9 @@ local defaultConfig = {
    fadeColor = gfx.kColorBlack,
 
    -- Allow the user to press the A button to view a popup with a QR code with
-   -- more information about Playdate Achievements.
-   enableAboutScreen = false,
+   -- more information about Playdate Achievements. Set this to false to remove
+   -- the About popup.
+   enableAboutScreen = true,
 
    -- Normally, a black header row is displayed, followed by white cards for the
    -- achievements. Set this to true to show dark cards with a light header row
@@ -88,10 +89,35 @@ local defaultConfig = {
 
    -- The default sort order to display achievements in. Options are: "default",
    -- "recent", "progress", or "name"
+   --
+   --  - "default" - sort by the order achievements are defined in the game's
+   --    achievement_data.
+   --
+   --  - "recent" - show the most recently earned achievements first, followed
+   --    by locked achievements in the order they are defined.
+   --
+   --  - "progress" - show locked in-progress achievements first, in order of
+   --    closest to completion to farthest from completion. Then other locked
+   --    achievements in definition order, then granted achievements in
+   --    definition order.
+   --
+   --  - "name" - sort alphabetically by achievement name
+   --
+   -- The user can press the D-pad left/right to toggle between these; this just
+   -- sets the default.
    sortOrder = "default",
 
    -- How to summarize achievements in the header: "count", "percent", "score",
    -- or "none".
+   --
+   --  - "count" - display a count of how many achievements you've unlocked out
+   --    of the total number of achievements. This includes all achievements,
+   --    even optional ones.
+   --
+   --  - "percent" - display a percentage completion, weighted by the scoreValue
+   --    of each achievement.
+   --
+   --  - "score" - display the raw scoreValue earned / total.
    summaryMode = "count",
 
    -- Disable the automatically captured / fading background.  If you disable
