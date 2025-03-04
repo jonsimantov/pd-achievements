@@ -31,8 +31,8 @@ local gfx <const> = playdate.graphics
 
    For more advanced use, you can set various config options below, for example:
    achievements.viewer.launch({
-     numDescriptionLines = 1,
-     fadeColor = gfx.kColorWhite,
+   numDescriptionLines = 1,
+   fadeColor = gfx.kColorWhite,
    }).
 
    Startup delay: The first time you call launch(), there will be a slight delay
@@ -57,7 +57,7 @@ local gfx <const> = playdate.graphics
 local defaultConfig = {
    -- Set the path that you've placed the achievements viewer's fonts, images,
    -- and sounds. Be sure to include the trailing slash.
-   assetPath = "achievements/assets/", 
+   assetPath = "achievements/assets/",
 
    -- Number of lines of the achievement description to display. Setting this to 1
    -- lets you fit more achievements on screen, if they all have very short
@@ -124,7 +124,7 @@ local defaultConfig = {
    -- the background, you will need to set an updateFunction and draw something
    -- there, or maybe call gfx.sprite.update() or something.
    disableBackground = false,
-   
+
    -- Which achievement data to use. Normally you will set this to nil to have
    -- it retrieve the current game's data directly from the achievements
    -- library, but if you want to display a different game's data, you can get
@@ -372,14 +372,14 @@ function av.initialize(config)
       local id = data.id
       m.achievementData[id] = data
       m.additionalAchievementData[id] = {
-	 idx = i,
-	 grantedAt = data.grantedAt,
-	 progress = data.progress
+         idx = i,
+         grantedAt = data.grantedAt,
+         progress = data.progress
       }
       if m.config.gameData == nil then
-	 -- reading from achievements library directly
-	 m.additionalAchievementData[id].grantedAt = achievements.granted[id]
-	 m.additionalAchievementData[id].progress = achievements.progress[id]
+         -- reading from achievements library directly
+         m.additionalAchievementData[id].grantedAt = achievements.granted[id]
+         m.additionalAchievementData[id].progress = achievements.progress[id]
       end
 
       m.icons[id] = {}
@@ -419,14 +419,14 @@ function av.reinitialize(config)
       local data = m.gameData.achievements[i]
       local id = data.id
       if m.config.gameData == nil then
-	 -- reading from achievements library directly
-	 m.additionalAchievementData[id].grantedAt = achievements.granted[id]
-	 m.additionalAchievementData[id].progress = achievements.progress[id]
+         -- reading from achievements library directly
+         m.additionalAchievementData[id].grantedAt = achievements.granted[id]
+         m.additionalAchievementData[id].progress = achievements.progress[id]
       end
       local data2 = m.additionalAchievementData[id]
       local isHidden = not not (data.isSecret and not data2.grantedAt)
       if isHidden then
-	 m.numHiddenCards = m.numHiddenCards + 1
+         m.numHiddenCards = m.numHiddenCards + 1
       end
       local achScore = data.score_value or data.scoreValue or 0
       m.possibleScore += achScore
@@ -469,17 +469,17 @@ function av.sortCards()
    if m.sortOrder == "progress" then
       table.sort(m.cardSort,
                  function(a, b)
-		    local hideA = not not (m.achievementData[a].isSecret and not m.additionalAchievementData[a].grantedAt)
-		    local hideB = not not (m.achievementData[b].isSecret and not m.additionalAchievementData[b].grantedAt)
+                    local hideA = not not (m.achievementData[a].isSecret and not m.additionalAchievementData[a].grantedAt)
+                    local hideB = not not (m.achievementData[b].isSecret and not m.additionalAchievementData[b].grantedAt)
                     if hideA ~= hideB then
                        return hideB
-		    elseif m.additionalAchievementData[a].grantedAt and not m.additionalAchievementData[b].grantedAt then
+                    elseif m.additionalAchievementData[a].grantedAt and not m.additionalAchievementData[b].grantedAt then
                        return false
                     elseif m.additionalAchievementData[b].grantedAt and not m.additionalAchievementData[a].grantedAt then
                        return true
                     elseif m.additionalAchievementData[a].grantedAt and m.additionalAchievementData[b].grantedAt and
                        m.additionalAchievementData[a].grantedAt ~= m.additionalAchievementData[b].grantedAt then
-		       return m.additionalAchievementData[a].idx <  m.additionalAchievementData[b].idx
+                       return m.additionalAchievementData[a].idx <  m.additionalAchievementData[b].idx
                     else
                        local progressMaxA = m.achievementData[a].progressMax or m.achievementData[a].progress_max or 0
                        local progressMaxB = m.achievementData[b].progressMax or m.achievementData[b].progress_max or 0
@@ -513,11 +513,11 @@ function av.sortCards()
    elseif m.sortOrder == "recent" then
       table.sort(m.cardSort,
                  function(a, b)
-		    local hideA = not not (m.achievementData[a].isSecret and not m.additionalAchievementData[a].grantedAt)
-		    local hideB = not not (m.achievementData[b].isSecret and not m.additionalAchievementData[b].grantedAt)
+                    local hideA = not not (m.achievementData[a].isSecret and not m.additionalAchievementData[a].grantedAt)
+                    local hideB = not not (m.achievementData[b].isSecret and not m.additionalAchievementData[b].grantedAt)
                     if hideA ~= hideB then
                        return hideB
-		    elseif m.additionalAchievementData[a].grantedAt and not m.additionalAchievementData[b].grantedAt then
+                    elseif m.additionalAchievementData[a].grantedAt and not m.additionalAchievementData[b].grantedAt then
                        return true
                     elseif m.additionalAchievementData[b].grantedAt and not m.additionalAchievementData[a].grantedAt then
                        return false
@@ -532,25 +532,25 @@ function av.sortCards()
    elseif m.sortOrder == "name" then
       table.sort(m.cardSort,
                  function(a, b)
-		    local hideA = not not (m.achievementData[a].isSecret and not m.additionalAchievementData[a].grantedAt)
-		    local hideB = not not (m.achievementData[b].isSecret and not m.additionalAchievementData[b].grantedAt)
+                    local hideA = not not (m.achievementData[a].isSecret and not m.additionalAchievementData[a].grantedAt)
+                    local hideB = not not (m.achievementData[b].isSecret and not m.additionalAchievementData[b].grantedAt)
                     if hideA ~= hideB then
                        return hideB
                     else
-		       return m.achievementData[a].name < m.achievementData[b].name
-		    end
+                       return m.achievementData[a].name < m.achievementData[b].name
+                    end
                  end
       )
    elseif m.sortOrder == "default" then
       table.sort(m.cardSort,
                  function(a, b)
-		    local hideA = not not (m.achievementData[a].isSecret and not m.additionalAchievementData[a].grantedAt)
-		    local hideB = not not (m.achievementData[b].isSecret and not m.additionalAchievementData[b].grantedAt)
+                    local hideA = not not (m.achievementData[a].isSecret and not m.additionalAchievementData[a].grantedAt)
+                    local hideB = not not (m.achievementData[b].isSecret and not m.additionalAchievementData[b].grantedAt)
                     if hideA ~= hideB then
                        return hideB
                     else
-		       return m.additionalAchievementData[a].idx < m.additionalAchievementData[b].idx
-		    end
+                       return m.additionalAchievementData[a].idx < m.additionalAchievementData[b].idx
+                    end
                  end
       )
    end
@@ -695,7 +695,7 @@ function av.drawSecretAchievementSummary(x, y, width, height)
       image = gfx.image.new(wantWidth, wantHeight)
 
       gfx.pushContext(image)
-      
+
       local margin = 1
 
       gfx.setColor(gfx.kColorWhite)
@@ -709,14 +709,14 @@ function av.drawSecretAchievementSummary(x, y, width, height)
 
       local font = m.fonts.name.locked
       local summaryText = string.format(NUM_HIDDEN_ACHIEVEMENTS_TEXT, m.numHiddenCards, m.numHiddenCards == 1 and "" or "s")
-      
+
       font:drawTextAligned(summaryText, width/2, height/2 - math.floor(font:getHeight()/2) + SUMMARY_TWEAK_Y, kTextAlignment.center)
-      
+
       gfx.popContext()
 
       m.secretAchievementSummaryCache = image
       if m.config.invertCards then
-	 m.secretAchievementSummaryCache:setInverted(true)
+         m.secretAchievementSummaryCache:setInverted(true)
       end
    end
    m.secretAchievementSummaryCache:draw(x, y)
@@ -737,7 +737,7 @@ function av.drawCard(achievementId, x, y, width, height)
 
       local info = m.achievementData[achievementId]
 
-      local iconImgGranted = m.icons[achievementId].granted 
+      local iconImgGranted = m.icons[achievementId].granted
       local iconImgLocked = m.icons[achievementId].locked
 
       gfx.setColor(gfx.kColorWhite)
@@ -761,13 +761,13 @@ function av.drawCard(achievementId, x, y, width, height)
          iconSize = math.min(iconSize, iconImg.width)
          iconImg:draw(width - imageMargin - iconImg.width, imageMargin)
       else
-	 iconSize = 0
+         iconSize = 0
       end
 
       local font = granted and m.fonts.name.granted or m.fonts.name.locked
       gfx.setFont(font)
       local name = info.name
-      
+
       local nameImg = gfx.imageWithText(name,
                                         width - 2*LAYOUT_MARGIN - LAYOUT_ICON_SPACING - iconSize,
                                         height - 2*LAYOUT_MARGIN - LAYOUT_SPACING - CHECKBOX_SIZE)
@@ -871,21 +871,21 @@ function av.drawCard(achievementId, x, y, width, height)
                            progressBarWidth, PROGRESS_BAR_HEIGHT, PROGRESS_BAR_CORNER)
       end
       if granted and (info.isSecret or info.scoreValue == 0) then
-	 local extraText, extraImg
-	 if info.isSecret then
-	    extraText = EXTRA_SECRET_TEXT
-	 elseif info.scoreValue == 0 then
-	    extraText = EXTRA_OPTIONAL_TEXT
-	 end
-	 if extraText then
-	    extraImg = gfx.imageWithText(extraText,
-					 width - 2*LAYOUT_MARGIN - LAYOUT_SPACING - CHECKBOX_SIZE,
-					 height - LAYOUT_MARGIN - iconSize - LAYOUT_ICON_SPACING)
-	 end
-	 if extraImg then
-	    extraImg:draw(LAYOUT_MARGIN + CHECKBOX_SIZE + LAYOUT_SPACING,
-			  height - LAYOUT_MARGIN - statusImg.height + LAYOUT_STATUS_TWEAK_Y)
-	 end
+         local extraText, extraImg
+         if info.isSecret then
+            extraText = EXTRA_SECRET_TEXT
+         elseif info.scoreValue == 0 then
+            extraText = EXTRA_OPTIONAL_TEXT
+         end
+         if extraText then
+            extraImg = gfx.imageWithText(extraText,
+                                         width - 2*LAYOUT_MARGIN - LAYOUT_SPACING - CHECKBOX_SIZE,
+                                         height - LAYOUT_MARGIN - iconSize - LAYOUT_ICON_SPACING)
+         end
+         if extraImg then
+            extraImg:draw(LAYOUT_MARGIN + CHECKBOX_SIZE + LAYOUT_SPACING,
+                          height - LAYOUT_MARGIN - statusImg.height + LAYOUT_STATUS_TWEAK_Y)
+         end
       end
       gfx.popContext()
       if m.config.invertCards then
@@ -910,7 +910,7 @@ function av.drawScrollbar(x, y)
    if m.config.enableAboutScreen then
       scrollbarYLimit = ABOUT_BUTTON_Y+4
    end
-   
+
    gfx.fillRoundRect(x, SCROLLBAR_Y_BUFFER, SCROLLBAR_WIDTH, scrollbarYLimit - 2*SCROLLBAR_Y_BUFFER, SCROLLBAR_CORNER)
    local margin = 1
    gfx.setColor(gfx.kColorBlack)
@@ -968,36 +968,36 @@ function av.drawCards(x, y, animating)
    for i = 1,#m.card do
       if not m.card[i].hidden then
          local card = m.card[i]
-	 local id = m.cardSort[i]
-	 isHidden = not not (m.achievementData[id].isSecret and not m.additionalAchievementData[id].grantedAt)
-	 card.drawY = m.card[i].y + count*extraSpacing
-	 if not isHidden then
-	    count = count + 1
-	    if y + card.drawY + m.c.CARD_HEIGHT > 0 and y + card.drawY < SCREEN_HEIGHT then
-	       av.drawCard(id,
-			   x + card.x,
-			   y + card.drawY,
-			   CARD_WIDTH, m.c.CARD_HEIGHT)
-	       m.card[i].isVisible = true
-	    else
-	       m.card[i].isVisible = false
-	    end
-	 else
-	    if not showedSummary and m.numHiddenCards > 0 then
-	       showedSummary = true
-	       count = count + 1
-	       if y + card.drawY + SUMMARY_CARD_HEIGHT > 0 and y + card.drawY < SCREEN_HEIGHT then
-		  av.drawSecretAchievementSummary(x + card.x,
-						  y + card.drawY,
-						  CARD_WIDTH, SUMMARY_CARD_HEIGHT)
-		  m.card[i].isVisible = true
-	       else
-		  m.card[i].isVisible = false
-	       end
-	    else
-	       m.card[i].isVisible = false
-	    end
-	 end
+         local id = m.cardSort[i]
+         isHidden = not not (m.achievementData[id].isSecret and not m.additionalAchievementData[id].grantedAt)
+         card.drawY = m.card[i].y + count*extraSpacing
+         if not isHidden then
+            count = count + 1
+            if y + card.drawY + m.c.CARD_HEIGHT > 0 and y + card.drawY < SCREEN_HEIGHT then
+               av.drawCard(id,
+                           x + card.x,
+                           y + card.drawY,
+                           CARD_WIDTH, m.c.CARD_HEIGHT)
+               m.card[i].isVisible = true
+            else
+               m.card[i].isVisible = false
+            end
+         else
+            if not showedSummary and m.numHiddenCards > 0 then
+               showedSummary = true
+               count = count + 1
+               if y + card.drawY + SUMMARY_CARD_HEIGHT > 0 and y + card.drawY < SCREEN_HEIGHT then
+                  av.drawSecretAchievementSummary(x + card.x,
+                                                  y + card.drawY,
+                                                  CARD_WIDTH, SUMMARY_CARD_HEIGHT)
+                  m.card[i].isVisible = true
+               else
+                  m.card[i].isVisible = false
+               end
+            else
+               m.card[i].isVisible = false
+            end
+         end
       end
    end
    if m.title.isVisible then
@@ -1022,7 +1022,7 @@ function av.animateInUpdate()
    if m.numHiddenCards > 0 then
       maxCard = maxCard - m.numHiddenCards  -- one extra card to say "plus X hidden achievements!"
       if m.numHiddenCards > 0 then
-	 summarySpace = SUMMARY_CARD_HEIGHT + CARD_SPACING
+         summarySpace = SUMMARY_CARD_HEIGHT + CARD_SPACING
       end
    end
    m.maxScroll = m.card[maxCard].y + m.c.CARD_HEIGHT - SCREEN_HEIGHT + 2*CARD_SPACING + summarySpace
@@ -1137,7 +1137,7 @@ function av.mainUpdate()
    if m.numHiddenCards > 0 then
       maxCard = maxCard - m.numHiddenCards  -- one extra card to say "plus X hidden achievements!"
       if m.numHiddenCards > 0 then
-	 summarySpace = SUMMARY_CARD_HEIGHT + CARD_SPACING
+         summarySpace = SUMMARY_CARD_HEIGHT + CARD_SPACING
       end
    end
    m.maxScroll = m.card[maxCard].y + m.c.CARD_HEIGHT - SCREEN_HEIGHT + 2*CARD_SPACING + summarySpace
@@ -1146,25 +1146,25 @@ function av.mainUpdate()
 
    if m.aboutScreenAnim == nil then
       if playdate.buttonJustPressed(playdate.kButtonRight) then
-	 local i = table.indexOfElement(SORT_ORDER, m.sortOrder)
-	 if i < #SORT_ORDER then i = i + 1 else i = 1 end
-	 m.sortOrder = SORT_ORDER[i] or SORT_ORDER[1]
-	 av.sortCards()
-	 if m.config.soundVolume > 0 then
-	    m.sortSound:setVolume(m.config.soundVolume)
-	    m.sortSound:play()
-	 end
-	 m.scrollToTop = true
+         local i = table.indexOfElement(SORT_ORDER, m.sortOrder)
+         if i < #SORT_ORDER then i = i + 1 else i = 1 end
+         m.sortOrder = SORT_ORDER[i] or SORT_ORDER[1]
+         av.sortCards()
+         if m.config.soundVolume > 0 then
+            m.sortSound:setVolume(m.config.soundVolume)
+            m.sortSound:play()
+         end
+         m.scrollToTop = true
       elseif playdate.buttonJustPressed(playdate.kButtonLeft) then
-	 local i = table.indexOfElement(SORT_ORDER, m.sortOrder)
-	 if i > 1 then i = i - 1 else i = #SORT_ORDER end
-	 m.sortOrder = SORT_ORDER[i] or SORT_ORDER[1]
-	 av.sortCards()
-	 if m.config.soundVolume > 0 then
-	    m.sortSound:setVolume(m.config.soundVolume)
-	    m.sortSound:play()
-	 end
-	 m.scrollToTop = true
+         local i = table.indexOfElement(SORT_ORDER, m.sortOrder)
+         if i > 1 then i = i - 1 else i = #SORT_ORDER end
+         m.sortOrder = SORT_ORDER[i] or SORT_ORDER[1]
+         av.sortCards()
+         if m.config.soundVolume > 0 then
+            m.sortSound:setVolume(m.config.soundVolume)
+            m.sortSound:play()
+         end
+         m.scrollToTop = true
       end
    end
    local oldScroll = m.scroll
@@ -1227,45 +1227,45 @@ function av.mainUpdate()
 
    if playdate.buttonJustPressed(playdate.kButtonB) then
       if m.aboutScreenAnim == ABOUT_SCREEN_ANIM_FRAMES then
-	 m.exitSound:setVolume(m.config.soundVolume)
-	 m.exitSound:play(1, 1.2)
-	 m.aboutScreenAnimSpeed = -1
+         m.exitSound:setVolume(m.config.soundVolume)
+         m.exitSound:play(1, 1.2)
+         m.aboutScreenAnimSpeed = -1
       elseif m.aboutScreenAnim == nil then
-	 m.fadedBackdropImage = nil
-	 av.beginExit()
+         m.fadedBackdropImage = nil
+         av.beginExit()
       end
    elseif m.config.enableAboutScreen and playdate.buttonJustPressed(playdate.kButtonA) then
       if m.aboutScreenAnim == nil then
-	 m.launchSound:setVolume(m.config.soundVolume)
-	 m.launchSound:play(1, 1.2)
-	 m.aboutScreenAnimSpeed = 1
-	 m.aboutScreenAnim = (m.aboutScreenAnim or 0)
+         m.launchSound:setVolume(m.config.soundVolume)
+         m.launchSound:play(1, 1.2)
+         m.aboutScreenAnimSpeed = 1
+         m.aboutScreenAnim = (m.aboutScreenAnim or 0)
       end
    end
 
    if m.aboutScreenAnim ~= nil then
       m.aboutScreenAnim = m.aboutScreenAnim + (m.aboutScreenAnimSpeed or 0)
       if m.aboutScreenAnimSpeed > 0 and m.aboutScreenAnim >= ABOUT_SCREEN_ANIM_FRAMES then
-	 m.aboutScreenAnim = ABOUT_SCREEN_ANIM_FRAMES
-	 gfx.pushContext()
-	 gfx.setColor(m.config.fadeColor)
-	 gfx.setDitherPattern(0.5, gfx.image.kDitherTypeBayer8x8)
-	 gfx.fillRect(0, 0, 400, 240)
-	 gfx.popContext()
-	 m.aboutScreenImg:draw(math.floor(SCREEN_WIDTH/2 - m.aboutScreenImg.width/2),
-			       math.floor(SCREEN_HEIGHT/2 - m.aboutScreenImg.height/2))
+         m.aboutScreenAnim = ABOUT_SCREEN_ANIM_FRAMES
+         gfx.pushContext()
+         gfx.setColor(m.config.fadeColor)
+         gfx.setDitherPattern(0.5, gfx.image.kDitherTypeBayer8x8)
+         gfx.fillRect(0, 0, 400, 240)
+         gfx.popContext()
+         m.aboutScreenImg:draw(math.floor(SCREEN_WIDTH/2 - m.aboutScreenImg.width/2),
+                               math.floor(SCREEN_HEIGHT/2 - m.aboutScreenImg.height/2))
       elseif m.aboutScreenAnimSpeed < 0 and m.aboutScreenAnim <= 0 then
-	 m.aboutScreenAnim = nil
-	 m.aboutScreenAnimSpeed = 0
+         m.aboutScreenAnim = nil
+         m.aboutScreenAnimSpeed = 0
       else
-	 gfx.pushContext()
-	 gfx.setColor(m.config.fadeColor)
-	 gfx.setDitherPattern(1 - (m.aboutScreenAnim / ABOUT_SCREEN_ANIM_FRAMES / 2), gfx.image.kDitherTypeBayer8x8)
-	 gfx.fillRect(0, 0, 400, 240)
-	 gfx.popContext()
-	 m.aboutScreenImg:drawFaded(math.floor(SCREEN_WIDTH/2 - m.aboutScreenImg.width/2),
-				    math.floor(SCREEN_HEIGHT/2 - m.aboutScreenImg.height/2),
-				    m.aboutScreenAnim / ABOUT_SCREEN_ANIM_FRAMES, ABOUT_SCREEN_DITHER)
+         gfx.pushContext()
+         gfx.setColor(m.config.fadeColor)
+         gfx.setDitherPattern(1 - (m.aboutScreenAnim / ABOUT_SCREEN_ANIM_FRAMES / 2), gfx.image.kDitherTypeBayer8x8)
+         gfx.fillRect(0, 0, 400, 240)
+         gfx.popContext()
+         m.aboutScreenImg:drawFaded(math.floor(SCREEN_WIDTH/2 - m.aboutScreenImg.width/2),
+                                    math.floor(SCREEN_HEIGHT/2 - m.aboutScreenImg.height/2),
+                                    m.aboutScreenAnim / ABOUT_SCREEN_ANIM_FRAMES, ABOUT_SCREEN_DITHER)
       end
       m.backButtonImg:draw(BACK_BUTTON_X, BACK_BUTTON_Y)
    end
