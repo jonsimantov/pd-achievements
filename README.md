@@ -1,7 +1,5 @@
----
-layout: post
-title: 🏆 Playdate Achievements
----
+# 🏆 Playdate Achievements
+
 _An open achievement standard for the Playdate console._
 
 Playdate Achievements is a community project establishing an open standard for achievements in [Playdate](https://play.date)™ games. Playdate is fun! Games on Playdate are fun! Achievements in games on Playdate are fun! Having a standard ensures a consistent experience for players, and makes it possible to view achievements earned across games in one place.
